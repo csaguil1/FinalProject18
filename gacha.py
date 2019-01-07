@@ -25,29 +25,29 @@ class Player(Character):
     Character.__init__(self, name, atk, hp, defense)
     self.rank = rank
 
-  def describe(self):
-      """describe the specified character"""
-      print(f"""
-  {self.name}:
-    hp: {self.hp}
-    atk: {self.atk}
-    def: {self.defense}
-    rank: {self.rank}""")
-      return
+  #def describe(self):
+   # """describe the specified character"""
+    #print(f"""
+  #{self.name}:
+   # hp: {self.hp}
+    #atk: {self.atk}
+    #def: {self.defense}
+    #rank: {self.rank}""")
+    #return
 
 class Opponent(Character):
   """Class for opponents"""
   def __init__(self, name, atk, hp, defense):
     Character.__init__(self, name, atk, hp, defense)
 
-  def describe(self):
-      """describe the specified character"""
-      print(f"""
-  {self.name}:
-    hp: {self.hp}
-    atk: {self.atk}
-    def: {self.defense}""")
-      return
+  #def describe(self):
+     # """describe the specified character"""
+     # print(f"""
+ # {self.name}:
+   # hp: {self.hp}
+   # atk: {self.atk}
+   # def: {self.defense}""")
+     # return
 
 jh = Player("Jihun", 10000, 10000, 100, "SSR")
 yh = Player("UKnow", 9900, 9900, 100, "SSR")
