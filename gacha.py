@@ -5,10 +5,12 @@ import time
 pygame.init()
 
 window_width = 800
-window_height = 500
+window_height = 600
 
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Gacha Game")
+
+
 
 # define classes here
 class Character:
@@ -96,7 +98,7 @@ jyp = Opponent("JYP", 8000, 16000, 60)
 
 clock = pygame.time.Clock()
 
-#back = pygame.image.load("background.jpg")
+kimjihun = pygame.image.load("kimjh.png")
 
 run = False
 
@@ -110,5 +112,5 @@ while not run:
 
     # core logic goes here
 
-    #window.blit(back, (0,0))
-    #pygame.display.update()
+    window.blit(kimjihun, (0,0))
+    pygame.display.update()
