@@ -88,7 +88,7 @@ m2 = Opponent("Manager 2", 3000, 6000, 30)
 m3 = Opponent("Manager 3", 3000, 6000, 30)
 jf = Opponent("JellyFish", 5000, 10000, 40)
 plt = Opponent("Planetarium", 4500, 9000, 40)
-wl = Opponent("Woolim", 4000, 8000, 40)
+wl = Opponent("Woollim", 4000, 8000, 40)
 ss = Opponent("Starship",5500 , 11000, 50)
 pd = Opponent("Pledis", 6000, 12000, 50)
 fnc = Opponent("FNC", 6500, 13000, 50)
@@ -98,7 +98,7 @@ jyp = Opponent("JYP", 8000, 16000, 60)
 
 clock = pygame.time.Clock()
 
-kimjihun = pygame.image.load("kimjh.png")
+back = pygame.image.load("background.png")
 
 run = False
 
@@ -112,5 +112,5 @@ while not run:
 
     # core logic goes here
 
-    window.blit(kimjihun, (0,0))
+    window.blit(back, (0,0))
     pygame.display.update()
