@@ -85,10 +85,16 @@ def game_menu():
                 quit()
 
         window.blit(back, (0,0))
-        largeText = pygame.font.SysFont("comicsansms",115)
-        TextSurf, TextRect = text_objects("menu yall", largeText)
-        TextRect.center = ((window_width/2),(window_height/2))
+        pygame.draw.rect(window, red, (0,0, 800, 50) )
+        mediumText = pygame.font.SysFont("comicsansms",30)
+        TextSurf, TextRect = text_objects("menu yall", mediumText)
+        TextRect.center = ((70, 50/2 ))
         window.blit(TextSurf, TextRect)
+
+        button("formation",50,80,700,100,green,bright_green, game_intro)
+        button("enhance",50,210,700,100,green,bright_green, game_menu)
+        button("summon",50,340,700,100,green,bright_green, game_menu)
+        button("fight",50,470,700,100,green,bright_green, game_menu)
 
         pygame.display.update()
         clock.tick(15)
