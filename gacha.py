@@ -10,7 +10,91 @@ window_height = 600
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Gacha Game")
 
+black = (0,0,0)
+red = (200,0,0)
+green = (0,200,0)
 
+bright_red = (255,0,0)
+bright_green = (0,255,0)
+
+clock = pygame.time.Clock()
+clock.tick(60)
+
+back = pygame.image.load("background.png")
+kimjihun = pygame.image.load("kimjh.png")
+
+def text_objects(text, font):
+    """text"""
+    textSurface = font.render(text, True, black)
+    return textSurface, textSurface.get_rect()
+
+def text_box(text, font):
+    """text box"""
+
+def button(msg,x,y,w,h,ic,ac,action=None):
+    """buttons"""
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    print(click)
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        pygame.draw.rect(window, ac,(x,y,w,h))
+
+        if click[0] == 1 and action != None:
+            action()         
+    else:
+        pygame.draw.rect(window, ic,(x,y,w,h))
+
+    smallText = pygame.font.SysFont("comicsansms",20)
+    textSurf, textRect = text_objects(msg, smallText)
+    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+    window.blit(textSurf, textRect)
+
+def game_intro():
+    """intro for the game"""
+
+    intro = True
+
+    while intro:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        largeText = pygame.font.SysFont("comicsansms",115)
+        TextSurf, TextRect = text_objects("Gacha Game", largeText)
+        TextRect.center = ((window_width/2),(window_height/2))
+        window.blit(TextSurf, TextRect)
+
+        button("Please Click Here To Start!",150,450,500,50,green,bright_green, game_menu)
+
+        pygame.display.update()
+        clock.tick(15)
+
+def game_menu():
+      """menu lol"""
+    
+      menu = True
+
+      while menu:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        largeText = pygame.font.SysFont("comicsansms",115)
+        TextSurf, TextRect = text_objects("menu yall", largeText)
+        TextRect.center = ((window_width/2),(window_height/2))
+        window.blit(TextSurf, TextRect)
+
+        pygame.display.update()
+        clock.tick(15)
+
+
+  
 
 # define classes here
 class Character:
@@ -96,10 +180,6 @@ yg = Opponent("YG", 9000, 18000, 60)
 sm = Opponent("SM", 10000, 20000, 60)
 jyp = Opponent("JYP", 8000, 16000, 60)
 
-clock = pygame.time.Clock()
-
-back = pygame.image.load("background.png")
-
 run = False
 
 # main loop
@@ -111,6 +191,4 @@ while not run:
             run = True
 
     # core logic goes here
-
-    window.blit(back, (0,0))
-    pygame.display.update()
+    game_intro()
