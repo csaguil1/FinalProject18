@@ -14,6 +14,7 @@ black = (0,0,0)
 red = (200,0,0)
 green = (0,200,0)
 white = (255, 255, 255)
+gray = (224, 224, 224)
 bright_red = (255,0,0)
 bright_green = (0,255,0)
 
@@ -226,6 +227,7 @@ def game_tutorial():
         elif click == 5:
             window.blit(back, (0,0))
             text_box("First of all, you will get 10 summon stones to summon idols.")
+            inventory["summon stone"] = 10
             pygame.display.update()
         elif click == 6:
             window.blit(back, (0,0))
@@ -325,6 +327,7 @@ inventory = {
     'apple': 0
 }
 
+
 players_summoned = {
     jh: 0, 
     yh: 0, 
@@ -360,6 +363,38 @@ def pull():
     pull.describe()
     pygame.display.update()
 
+def single_summon():
+    """howdy"""
+    
+    if inventory["summon stone"] >= 2:
+        pull()
+        players_summoned[pull] = 1
+    else:
+        window.blit(back, (0,0))
+        text_box("I'm sorry, you don't have enough summon stones to complete this action.")
+        pygame.display.update()
+    
+
+def multi_summon():
+    """yeehaw"""
+   
+    if inventory["summon stone"] >= 10:
+        pull()
+        players_summoned[pull] = 1
+        pull()
+        players_summoned[pull] = 1
+        pull()
+        players_summoned[pull] = 1
+        pull()
+        players_summoned[pull] = 1
+        pull()
+        players_summoned[pull] = 1
+    else:
+        window.blit(back, (0,0))
+        text_box("I'm sorry, you don't have enough summon stones to complete this action.")
+        pygame.display.update()
+
+
 def formation():
     """im not sure yet how to do this"""
 
@@ -375,7 +410,21 @@ def fight():
 def summon():
     """summon the demon"""
 
-    pull()
+    summon = True
+
+    while summon:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        button("summon x1", 50, 450, 100, 50, black, gray, single_summon)
+        button("summon x5", 50, 450, 100, 50, black, gray, multi_summon)
+
+        pygame.display.update()
+
 
 run = False
 
@@ -388,6 +437,5 @@ while not run:
         if event.type == pygame.QUIT:
             run = True
    
-
     # core logic goes here
     game_intro()
