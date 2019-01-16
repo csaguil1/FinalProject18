@@ -18,7 +18,6 @@ bright_red = (255,0,0)
 bright_green = (0,255,0)
 
 clock = pygame.time.Clock()
-clock.tick(60)
 
 back = pygame.image.load("background.png")
 back2 = pygame.image.load("background 2.png")
@@ -73,7 +72,7 @@ def text_box(text):
     pygame.draw.rect(window, black, (50, 400, 700, 150))
     pygame.draw.rect(window, white, (55, 405, 690, 140))
     pygame.draw.rect(window, black, (60, 410, 680, 130))
-    smallText = pygame.font.SysFont("comicsansms",20)
+    smallText = pygame.font.SysFont("comicsansms",10)
     TextSurf, TextRect = text_objects(text, smallText, white)
     TextRect.center = (400, 475)
     window.blit(TextSurf, TextRect)
@@ -116,7 +115,6 @@ def game_intro():
         button("Please Click Here To Start!",150,450,500,50,green,bright_green, game_story)
 
         pygame.display.update()
-        clock.tick(15)
 
 def game_menu():
       """menu lol"""
@@ -137,13 +135,12 @@ def game_menu():
         TextRect.center = ((70, 50/2 ))
         window.blit(TextSurf, TextRect)
 
-        button("formation",50,80,700,100,green,bright_green, game_intro)
-        button("enhance",50,210,700,100,green,bright_green, game_menu)
-        button("summon",50,340,700,100,green,bright_green, game_menu)
-        button("fight",50,470,700,100,green,bright_green, game_menu)
+        button("formation",50,80,700,100,green,bright_green, formation)
+        button("enhance",50,210,700,100,green,bright_green, enhance)
+        button("summon",50,340,700,100,green,bright_green, summon)
+        button("fight",50,470,700,100,green,bright_green, fight_menu)
 
         pygame.display.update()
-        clock.tick(15)
 
 def game_story(): 
     """i hate this"""
@@ -153,22 +150,22 @@ def game_story():
     story = True
 
     while story:
+        clock.tick(5)
         for event in pygame.event.get():
             print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        
-        window.blit(back, (0,0))
-        text_box("PRESS SPACE TO GO TO THE NEXT SCREEN")
-        pygame.display.update()
-        clock.tick(15)
 
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE]:
             click += 1
 
-        if click == 1:
+        if click == 0:
+            window.blit(back, (0,0))
+            text_box("PRESS SPACE TO GO TO THE NEXT SCREEN")
+            pygame.display.update()
+        elif click == 1:
             window.blit(back, (0,0))
             text_box("It is a nice day in Seoul, Korea... ")
             pygame.display.update()
@@ -185,7 +182,57 @@ def game_story():
             text_box("THE IDOLS GET MAD! NOW THEY MUST FIGHT EVERYONE IN ORDER TO GET THEIR REST")
             pygame.display.update()
         elif click == 5:
-            game_menu()
+            game_tutorial()
+
+def game_tutorial():
+    """how to play the game kiddo"""
+    
+    click = 0
+
+    tutorial = True
+
+    while tutorial:
+        clock.tick(5)
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE]:
+            click += 1
+
+        if click == 0:
+            window.blit(back, (0,0))
+            text_box("First, let's find out how to play the game.")
+            pygame.display.update()
+        elif click == 1:
+            window.blit(back, (0,0))
+            text_box("Press the formation button on the menu to set up your team.")
+            pygame.display.update()
+        elif click == 2:
+            window.blit(back, (0,0))
+            text_box("Press the enhance button on the menu to upgrade your idols.")
+            pygame.display.update()
+        elif click == 3:
+            window.blit(back, (0,0))
+            text_box("Press the summon button to get idols.")
+            pygame.display.update()
+        elif click == 4:
+            window.blit(back, (0,0))
+            text_box("Press the fight button to battle enemies and win your rest.")
+            pygame.display.update()
+        elif click == 5:
+            window.blit(back, (0,0))
+            text_box("First of all, you will get 10 summon stones to summon idols.")
+            pygame.display.update()
+        elif click == 6:
+            window.blit(back, (0,0))
+            text_box("Press the multi summon button to get 5 starter idols.")
+            pygame.display.update()
+        elif click == 7:
+            summon()
 
 # define classes here
 class Character:
@@ -204,7 +251,7 @@ class Player(Character):
 
   def describe(self):
     """describe the specified character"""
-    text_box("""
+    text_box(f"""
 {self.name}:
     hp: {self.hp}
     atk: {self.atk}
@@ -219,7 +266,7 @@ class Opponent(Character):
 
   def describe(self):
     """describe the specified character"""
-    text_box("""
+    text_box(f"""
 {self.name}:
     hp: {self.hp}
     atk: {self.atk}
@@ -267,16 +314,74 @@ yg = Opponent("YG", 9000, 18000, 60)
 sm = Opponent("SM", 10000, 20000, 60)
 jyp = Opponent("JYP", 8000, 16000, 60)
 
+inventory = {
+    'summon stone': 0,
+    'silver': 0,
+    'copper': 0,
+    'armor': 0,
+    'bow': 0,
+    'arrow': 0,
+    'backpack': 0,
+    'apple': 0
+}
+
+players_summoned = {
+    jh: 0, 
+    yh: 0, 
+    cm: 0, 
+    yk: 0, 
+    hy: 0, 
+    js: 0, 
+    hj: 0, 
+    sh: 0, 
+    dg: 0, 
+    sg: 0, 
+    dw: 0, 
+    ji: 0, 
+    wp: 0, 
+    sj: 0, 
+    tw: 0, 
+    hs: 0, 
+    yn: 0, 
+    ho: 0, 
+    yr: 0, 
+    ty: 0, 
+    tf: 0, 
+    sy: 0, 
+    so: 0, 
+    rv: 0, 
+    hb: 0
+}
+
 def pull():
     players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
     pull = random.choice(players)
+    window.blit(back, (0,0))
     pull.describe()
+    pygame.display.update()
 
+def formation():
+    """im not sure yet how to do this"""
+
+def enhance():
+    """oof am i even going to do this"""
+
+def fight_menu():
+    """yah yeet"""
+
+def fight():
+    """eyeyeyeyeyeyeyeyeeyye"""
+
+def summon():
+    """summon the demon"""
+
+    pull()
 
 run = False
 
 # main loop
 while not run:
+    clock.tick(5)
     # event queue handling
     # this for loop contains anything that should be triggered by an event
     for event in pygame.event.get():
