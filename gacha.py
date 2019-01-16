@@ -13,7 +13,7 @@ pygame.display.set_caption("Gacha Game")
 black = (0,0,0)
 red = (200,0,0)
 green = (0,200,0)
-
+white = (255, 255, 255)
 bright_red = (255,0,0)
 bright_green = (0,255,0)
 
@@ -21,31 +21,77 @@ clock = pygame.time.Clock()
 clock.tick(60)
 
 back = pygame.image.load("background.png")
+back2 = pygame.image.load("background 2.png")
 kimjihun = pygame.image.load("kimjh.png")
+brian = pygame.image.load("briankang.png")
+hakyeon = pygame.image.load("choihakyeon.png")
+donggu = pygame.image.load("donggu.png")
+dongwoon = pygame.image.load("dongwoon.png")
+fan1 = pygame.image.load("fan1.png")
+fan2 = pygame.image.load("fan2.png")
+fan3 = pygame.image.load("fan3.png")
+fncent = pygame.image.load("fnc.png")
+hongbin = pygame.image.load("hongbin.png")
+hyoyeon = pygame.image.load("hyoyeon.png")
+hyuk = pygame.image.load("hyuk.png")
+jae = pygame.image.load("jae.png")
+jellyfish = pygame.image.load("jelly.png")
+inseong = pygame.image.load("jeonginseong.png")
+yunho = pygame.image.load("jeongyunho.png")
+jypent = pygame.image.load("jyp.png")
+leo = pygame.image.load("leo.png")
+manager1 = pygame.image.load("manager1.png")
+manager2 = pygame.image.load("manager2.png")
+manager3 = pygame.image.load("manager3.png")
+heejun = pygame.image.load("ohheejun.png")
+pledis = pygame.image.load("pld.png")
+planet = pygame.image.load("plt.png")
+ravi = pygame.image.load("ravi.png")
+seoham = pygame.image.load("seoham.png")
+seohyun = pygame.image.load("seohyun.png")
+changmin = pygame.image.load("shimchangmin.png")
+sment = pygame.image.load("sm.png")
+sooyoung = pygame.image.load("sooyoung.png")
+starship = pygame.image.load("star.png")
+sungjin = pygame.image.load("sungjin.png")
+sunny = pygame.image.load("sunny.png")
+taeyeon = pygame.image.load("taeyeon.png")
+tiffany = pygame.image.load("tiffany.png")
+wonpil = pygame.image.load("wonpil.png")
+woollim = pygame.image.load("woollim.png")
+ygent = pygame.image.load("yg.png")
+yoona = pygame.image.load("yoona.png")
+yuri = pygame.image.load("yuri.png")
 
-def text_objects(text, font):
+def text_objects(text, font, color):
     """text"""
-    textSurface = font.render(text, True, black)
+    textSurface = font.render(text, True, color)
     return textSurface, textSurface.get_rect()
 
-def text_box(text, font):
+def text_box(text):
     """text box"""
+    pygame.draw.rect(window, black, (50, 400, 700, 150))
+    pygame.draw.rect(window, white, (55, 405, 690, 140))
+    pygame.draw.rect(window, black, (60, 410, 680, 130))
+    smallText = pygame.font.SysFont("comicsansms",20)
+    TextSurf, TextRect = text_objects(text, smallText, white)
+    TextRect.center = (400, 475)
+    window.blit(TextSurf, TextRect)
 
 def button(msg,x,y,w,h,ic,ac,action=None):
     """buttons"""
     mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    print(click)
+    mouseclick = pygame.mouse.get_pressed()
+    print(mouseclick)
     if x+w > mouse[0] > x and y+h > mouse[1] > y:
         pygame.draw.rect(window, ac,(x,y,w,h))
 
-        if click[0] == 1 and action != None:
+        if mouseclick[0] == 1 and action != None:
             action()         
     else:
         pygame.draw.rect(window, ic,(x,y,w,h))
-
     smallText = pygame.font.SysFont("comicsansms",20)
-    textSurf, textRect = text_objects(msg, smallText)
+    textSurf, textRect = text_objects(msg, smallText, white)
     textRect.center = ( (x+(w/2)), (y+(h/2)) )
     window.blit(textSurf, textRect)
 
@@ -63,11 +109,11 @@ def game_intro():
 
         window.blit(back, (0,0))
         largeText = pygame.font.SysFont("comicsansms",115)
-        TextSurf, TextRect = text_objects("Gacha Game", largeText)
+        TextSurf, TextRect = text_objects("Gacha Game", largeText, white)
         TextRect.center = ((window_width/2),(window_height/2))
         window.blit(TextSurf, TextRect)
 
-        button("Please Click Here To Start!",150,450,500,50,green,bright_green, game_menu)
+        button("Please Click Here To Start!",150,450,500,50,green,bright_green, game_story)
 
         pygame.display.update()
         clock.tick(15)
@@ -87,7 +133,7 @@ def game_menu():
         window.blit(back, (0,0))
         pygame.draw.rect(window, red, (0,0, 800, 50) )
         mediumText = pygame.font.SysFont("comicsansms",30)
-        TextSurf, TextRect = text_objects("menu yall", mediumText)
+        TextSurf, TextRect = text_objects("menu yall", mediumText, white)
         TextRect.center = ((70, 50/2 ))
         window.blit(TextSurf, TextRect)
 
@@ -99,8 +145,47 @@ def game_menu():
         pygame.display.update()
         clock.tick(15)
 
+def game_story(): 
+    """i hate this"""
 
-  
+    click = 0
+
+    story = True
+
+    while story:
+        for event in pygame.event.get():
+            print(event)
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        
+        window.blit(back, (0,0))
+        text_box("PRESS SPACE TO GO TO THE NEXT SCREEN")
+        pygame.display.update()
+        clock.tick(15)
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE]:
+            click += 1
+
+        if click == 1:
+            window.blit(back, (0,0))
+            text_box("It is a nice day in Seoul, Korea... ")
+            pygame.display.update()
+        elif click == 2:
+            window.blit(back, (0,0))
+            text_box("The idols are tired from working and finally have a rest day! They are relaxing peacefully...")
+            pygame.display.update()
+        elif click == 3:
+            window.blit(back, (0,0))
+            text_box("That is until their fans, managers, and companies demand that they work!")
+            pygame.display.update()
+        elif click == 4:
+            window.blit(back, (0,0))
+            text_box("THE IDOLS GET MAD! NOW THEY MUST FIGHT EVERYONE IN ORDER TO GET THEIR REST")
+            pygame.display.update()
+        elif click == 5:
+            game_menu()
 
 # define classes here
 class Character:
@@ -117,29 +202,28 @@ class Player(Character):
     Character.__init__(self, name, atk, hp, defense)
     self.rank = rank
 
-  #def describe(self):
-   # """describe the specified character"""
-    #print(f"""
-  #{self.name}:
-   # hp: {self.hp}
-    #atk: {self.atk}
-    #def: {self.defense}
-    #rank: {self.rank}""")
-    #return
+  def describe(self):
+    """describe the specified character"""
+    text_box("""
+{self.name}:
+    hp: {self.hp}
+    atk: {self.atk}
+    def: {self.defense}
+    rank: {self.rank}""")
+    
 
 class Opponent(Character):
   """Class for opponents"""
   def __init__(self, name, atk, hp, defense):
     Character.__init__(self, name, atk, hp, defense)
 
-  #def describe(self):
-     # """describe the specified character"""
-     # print(f"""
- # {self.name}:
-   # hp: {self.hp}
-   # atk: {self.atk}
-   # def: {self.defense}""")
-     # return
+  def describe(self):
+    """describe the specified character"""
+    text_box("""
+{self.name}:
+    hp: {self.hp}
+    atk: {self.atk}
+    def: {self.defense}""")
 
 jh = Player("Jihun", 10000, 10000, 100, "SSR")
 yh = Player("UKnow", 9900, 9900, 100, "SSR")
@@ -167,9 +251,6 @@ so = Player("Seohyun", 5800, 5800, 50, "R")
 rv = Player("Ravi", 5700, 5700, 50, "R")
 hb = Player("Hongbin", 5600, 5600, 50, "R")
 
-players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
-pull = random.choice(players)
-
 f1 = Opponent("Fan 1", 2000, 4000, 20)
 f2 = Opponent("Fan 2", 2000, 4000, 20)
 f3 = Opponent("Fan 3", 2000, 4000, 20 )
@@ -186,6 +267,12 @@ yg = Opponent("YG", 9000, 18000, 60)
 sm = Opponent("SM", 10000, 20000, 60)
 jyp = Opponent("JYP", 8000, 16000, 60)
 
+def pull():
+    players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
+    pull = random.choice(players)
+    pull.describe()
+
+
 run = False
 
 # main loop
@@ -195,6 +282,7 @@ while not run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = True
+   
 
     # core logic goes here
     game_intro()
