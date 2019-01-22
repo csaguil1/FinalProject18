@@ -231,7 +231,7 @@ def game_tutorial():
             pygame.display.update()
         elif click == 6:
             window.blit(back, (0,0))
-            text_box("Press the multi summon button to get 5 starter idols.")
+            text_box("Press the summon button 5 times to get 5 starter idols.")
             pygame.display.update()
         elif click == 7:
             summon()
@@ -253,7 +253,7 @@ class Player(Character):
 
   def describe(self):
     """describe the specified character"""
-    text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}, rank: {self.rank}""")
+    text_box("""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}, rank: {self.rank}""")
     
 
 class Opponent(Character):
@@ -263,7 +263,7 @@ class Opponent(Character):
 
   def describe(self):
     """describe the specified character"""
-    text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
+    text_box("""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
 
 jh = Player("Jihun", 10000, 10000, 100, "SSR")
 yh = Player("UKnow", 9900, 9900, 100, "SSR")
@@ -347,8 +347,7 @@ players_summoned = {
 }
 
 def pull():
-    players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
-    pull = random.choice(players)
+    
     pull.describe()
 
 def single_summon():
@@ -366,60 +365,25 @@ def single_summon():
     
         window.blit(back, (0,0))
 
-        if inventory["summon stone"] >= 2:
-            pull()
-            players_summoned[pull] = 1
-            inventory["summon stone"] -= 2
-            button ("Go back to menu." , 50, 50, 200, 100, black, gray, game_menu )
-            pygame.display.update()
-        else:
-            text_box("I'm sorry, you don't have enough summon stones to complete this action.")
-            pygame.display.update()
-    
+        stone = inventory["summon stone"]
 
-def multi_summon():
-    """yeehaw"""
-
-    multi_summon = True
-
-    click = 0
-
-    while multi_summon:
-        clock.tick(5)
-        for event in pygame.event.get():
-            print(event)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+        players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
         
-        key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE]:
-            click += 1
-   
-        if inventory["summon stone"] >= 10:
-            if click == 0:
-                window.blit(back, (0,0))
-                pull()
-                players_summoned[pull] = 1
-            elif click == 1:
-                window.blit(back, (0,0))
-                pull()
-                players_summoned[pull] = 1
-            elif click == 2:
-                window.blit(back, (0,0))
-                pull()
-                players_summoned[pull] = 1
-            elif click == 3:
-                window.blit(back, (0,0))
-                pull()
-                players_summoned[pull] = 1
-            elif click == 4:
-                pull()
-                players_summoned[pull] = 1
-                inventory["summon stone"] -= 1
+        if stone >= 2:
+            pull = random.choice(players)
+            players_summoned[pull] = 1
+            stone -= 2
+            yoot = stone
+                
+            if stone == yoot:
+                pull.describe()
+                button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
+                button("go back to summon", 600, 50, 150, 50, black, gray, summon)
                 pygame.display.update()
         else:
             text_box("I'm sorry, you don't have enough summon stones to complete this action.")
+            button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
+            button("go back to summon", 600, 50, 150, 50, black, gray, summon)
             pygame.display.update()
 
 
@@ -448,11 +412,9 @@ def summon():
                 quit()
 
         window.blit(back, (0,0))
-        button("summon x1", 50, 450, 150, 50, black, gray, single_summon)
-        button("summon x5", 600, 450, 150, 50, black, gray, multi_summon)
+        button("summon", 50, 450, 700, 50, black, gray, single_summon)
 
         pygame.display.update()
-
 
 run = False
 
@@ -464,6 +426,6 @@ while not run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = True
-   
+
     # core logic goes here
     game_intro()
