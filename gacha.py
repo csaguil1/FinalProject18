@@ -15,6 +15,7 @@ red = (200,0,0)
 green = (0,200,0)
 white = (255, 255, 255)
 gray = (224, 224, 224)
+royal_blue = (17, 30, 108)
 bright_red = (255,0,0)
 bright_green = (0,255,0)
 
@@ -132,16 +133,16 @@ def game_menu():
                 quit()
 
         window.blit(back, (0,0))
-        pygame.draw.rect(window, red, (0,0, 800, 50) )
+        pygame.draw.rect(window, royal_blue, (0,0, 800, 50) )
         mediumText = pygame.font.SysFont("comicsansms",30)
         TextSurf, TextRect = text_objects("menu yall", mediumText, white)
         TextRect.center = ((70, 50/2 ))
         window.blit(TextSurf, TextRect)
 
-        button("formation",50,80,700,100,green,bright_green, formation)
-        button("enhance",50,210,700,100,green,bright_green, enhance)
-        button("summon",50,340,700,100,green,bright_green, summon)
-        button("fight",50,470,700,100,green,bright_green, fight_menu)
+        button("formation",50,80,700,100,black,gray, formation)
+        button("enhance",50,210,700,100,black,gray, enhance)
+        button("summon",50,340,700,100,black,gray, summon_menu)
+        button("fight",50,470,700,100,black,gray, fight_menu)
 
         pygame.display.update()
 
@@ -235,7 +236,7 @@ def game_tutorial():
             text_box("Press the summon button 5 times to get 5 starter idols.")
             pygame.display.update()
         elif click == 7:
-            summon()
+            summon_menu()
 
 # define classes here
 class Character:
@@ -336,46 +337,48 @@ players_summoned = {
     hb: 0
 }
 
-def single_summon():
+def summon():
     """howdy"""
-
-    stone = inventory["summon stone"]
 
     players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
     
-    if stone >= 2:
+    if inventory["summon stone"] >= 2:
         pull = random.choice(players)
-        players_summoned[pull] = 1
+        players_summoned[pull] += 1
+        print(players_summoned)
         print(inventory)
-        stone -= 2
+        inventory["summon stone"] -= 2
         print(inventory)
-        single_summon = True
 
-        while single_summon == True:
+        summon = True
+
+        while summon == True:
             clock.tick(5)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+
             window.blit(back, (0,0))
             pull.describe()
             button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
-            button("go back to summon", 600, 50, 150, 50, black, gray, summon)
+            button("go back to summon", 600, 50, 150, 50, black, gray, summon_menu)
             pygame.display.update()
 
     else:
-        single_summon = True
+        summon = True
 
-        while single_summon == True:
+        while summon == True:
             clock.tick(5)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+
             window.blit(back, (0,0))
             text_box("I'm sorry, you don't have enough summon stones to complete this action.")
             button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
-            button("go back to summon", 600, 50, 150, 50, black, gray, summon)
+            button("go back to summon", 600, 50, 150, 50, black, gray, summon_menu)
             pygame.display.update()
 
 
@@ -388,22 +391,44 @@ def enhance():
 def fight_menu():
     """yah yeet"""
 
-def fight():
-    """eyeyeyeyeyeyeyeyeeyye"""
+    fight_menu = True
 
-def summon():
-    """summon the demon"""
-
-    summon = True
-
-    while summon:
+    while fight_menu:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
         window.blit(back, (0,0))
-        button("summon", 50, 450, 700, 50, black, gray, single_summon)
+
+        button("level 1",50,122.5,700,75,black,gray)
+        button("level 2",50,217.5,700,75,black,gray)
+        button("level 3",50,312.5,700,75,black,gray)
+        button("level 4",50,407.5,700,75,black,gray)
+        button("level 5",50,502.5,700,75,black,gray)
+
+        button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
+
+        pygame.display.update()
+
+
+
+def fight():
+    """eyeyeyeyeyeyeyeyeeyye"""
+
+def summon_menu():
+    """summon the demon"""
+
+    summon_menu = True
+
+    while summon_menu:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        button("summon", 50, 450, 700, 50, black, gray, summon)
         button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
 
         pygame.display.update()
