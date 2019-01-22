@@ -20,6 +20,10 @@ bright_green = (0,255,0)
 
 clock = pygame.time.Clock()
 
+inventory = {
+    'summon stone': 0
+}
+
 back = pygame.image.load("background.png")
 back2 = pygame.image.load("background 2.png")
 kimjihun = pygame.image.load("kimjh.png")
@@ -102,7 +106,6 @@ def game_intro():
 
     while intro:
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -124,7 +127,6 @@ def game_menu():
 
       while menu:
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -153,7 +155,6 @@ def game_story():
     while story:
         clock.tick(5)
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -195,7 +196,6 @@ def game_tutorial():
     while tutorial:
         clock.tick(5)
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -228,6 +228,7 @@ def game_tutorial():
             window.blit(back, (0,0))
             text_box("First of all, you will get 10 summon stones to summon idols.")
             inventory["summon stone"] = 10
+            print(inventory)
             pygame.display.update()
         elif click == 6:
             window.blit(back, (0,0))
@@ -253,7 +254,7 @@ class Player(Character):
 
   def describe(self):
     """describe the specified character"""
-    text_box("""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}, rank: {self.rank}""")
+    text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}, rank: {self.rank}""")
     
 
 class Opponent(Character):
@@ -263,7 +264,7 @@ class Opponent(Character):
 
   def describe(self):
     """describe the specified character"""
-    text_box("""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
+    text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
 
 jh = Player("Jihun", 10000, 10000, 100, "SSR")
 yh = Player("UKnow", 9900, 9900, 100, "SSR")
@@ -307,17 +308,6 @@ yg = Opponent("YG", 9000, 18000, 60)
 sm = Opponent("SM", 10000, 20000, 60)
 jyp = Opponent("JYP", 8000, 16000, 60)
 
-inventory = {
-    'summon stone': 0,
-    'silver': 0,
-    'copper': 0,
-    'armor': 0,
-    'bow': 0,
-    'arrow': 0,
-    'backpack': 0,
-    'apple': 0
-}
-
 players_summoned = {
     jh: 0, 
     yh: 0, 
@@ -346,41 +336,43 @@ players_summoned = {
     hb: 0
 }
 
-def pull():
-    
-    pull.describe()
-
 def single_summon():
     """howdy"""
 
-    single_summon = True
+    stone = inventory["summon stone"]
 
-    while single_summon:
-        clock.tick(5)
-        for event in pygame.event.get():
-            print(event)
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+    players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
     
-        window.blit(back, (0,0))
+    if stone >= 2:
+        pull = random.choice(players)
+        players_summoned[pull] = 1
+        print(inventory)
+        stone -= 2
+        print(inventory)
+        single_summon = True
 
-        stone = inventory["summon stone"]
+        while single_summon == True:
+            clock.tick(5)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            window.blit(back, (0,0))
+            pull.describe()
+            button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
+            button("go back to summon", 600, 50, 150, 50, black, gray, summon)
+            pygame.display.update()
 
-        players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
-        
-        if stone >= 2:
-            pull = random.choice(players)
-            players_summoned[pull] = 1
-            stone -= 2
-            yoot = stone
-                
-            if stone == yoot:
-                pull.describe()
-                button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
-                button("go back to summon", 600, 50, 150, 50, black, gray, summon)
-                pygame.display.update()
-        else:
+    else:
+        single_summon = True
+
+        while single_summon == True:
+            clock.tick(5)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            window.blit(back, (0,0))
             text_box("I'm sorry, you don't have enough summon stones to complete this action.")
             button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
             button("go back to summon", 600, 50, 150, 50, black, gray, summon)
@@ -406,13 +398,13 @@ def summon():
 
     while summon:
         for event in pygame.event.get():
-            print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
         window.blit(back, (0,0))
         button("summon", 50, 450, 700, 50, black, gray, single_summon)
+        button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
 
         pygame.display.update()
 
