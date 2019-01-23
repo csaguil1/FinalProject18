@@ -18,6 +18,9 @@ gray = (224, 224, 224)
 royal_blue = (17, 30, 108)
 bright_red = (255,0,0)
 bright_green = (0,255,0)
+gold = (255, 215, 0)
+gold_yellow = (255, 223, 0)
+blue = (176, 224, 230)
 
 clock = pygame.time.Clock()
 
@@ -83,7 +86,7 @@ def text_box(text):
     TextRect.center = (400, 475)
     window.blit(TextSurf, TextRect)
 
-def button(msg,x,y,w,h,ic,ac,action=None):
+def button(msg,x,y,w,h,ic,ac=None,action=None):
     """buttons"""
     mouse = pygame.mouse.get_pos()
     mouseclick = pygame.mouse.get_pressed()
@@ -309,46 +312,16 @@ yg = Opponent("YG", 9000, 18000, 60)
 sm = Opponent("SM", 10000, 20000, 60)
 jyp = Opponent("JYP", 8000, 16000, 60)
 
-players_summoned = {
-    jh: 0, 
-    yh: 0, 
-    cm: 0, 
-    yk: 0, 
-    hy: 0, 
-    js: 0, 
-    hj: 0, 
-    sh: 0, 
-    dg: 0, 
-    sg: 0, 
-    dw: 0, 
-    ji: 0, 
-    wp: 0, 
-    sj: 0, 
-    tw: 0, 
-    hs: 0, 
-    yn: 0, 
-    ho: 0, 
-    yr: 0, 
-    ty: 0, 
-    tf: 0, 
-    sy: 0, 
-    so: 0, 
-    rv: 0, 
-    hb: 0
-}
+players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
+players_summoned = []
 
 def summon():
     """howdy"""
-
-    players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
     
     if inventory["summon stone"] >= 2:
         pull = random.choice(players)
-        players_summoned[pull] += 1
-        print(players_summoned)
-        print(inventory)
+        players_summoned.append(pull)
         inventory["summon stone"] -= 2
-        print(inventory)
 
         summon = True
 
@@ -361,10 +334,9 @@ def summon():
 
             window.blit(back, (0,0))
             pull.describe()
-            button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
-            button("go back to summon", 600, 50, 150, 50, black, gray, summon_menu)
+            button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
+            button("go back to summon", 600, 50, 200, 50, black, gray, summon_menu)
             pygame.display.update()
-
     else:
         summon = True
 
@@ -377,13 +349,124 @@ def summon():
 
             window.blit(back, (0,0))
             text_box("I'm sorry, you don't have enough summon stones to complete this action.")
-            button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
-            button("go back to summon", 600, 50, 150, 50, black, gray, summon_menu)
+            button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
+            button("go back to summon", 600, 50, 200, 50, black, gray, summon_menu)
             pygame.display.update()
 
 
 def formation():
     """im not sure yet how to do this"""
+
+    formation = True
+
+    while formation:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+        
+        window.blit(back, (0,0))
+        button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
+
+        if jh in players_summoned:
+            button("Jihun", 50, 141, 100, 50, gold, gold_yellow)
+            pygame.display.update
+        
+        if yh in players_summoned:
+            button("Uknow", 200, 141, 100, 50, gold, gold_yellow)
+            pygame.display.update
+        
+        if cm in players_summoned:
+            button("Max", 350, 141, 100, 50, gold, gold_yellow)
+            pygame.display.update
+        
+        if yk in players_summoned:
+            button("Brian", 500, 141, 100, 50, gold, gold_yellow)
+            pygame.display.update
+        
+        if hy in players_summoned:
+            button("N", 650, 141, 100, 50, gold, gold_yellow)
+            pygame.display.update
+            
+        if js in players_summoned:
+            button("Inseong", 50, 232, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if hj in players_summoned:
+            button("Heejun", 200, 232, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if sh in players_summoned:
+            button("Seoham", 350, 232, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if dg in players_summoned:
+            button("Donggu", 500, 232, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if sg in players_summoned:
+            button("Sunny", 650, 232, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if dw in players_summoned:
+            button("Dongwoon", 50, 323, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if ji in players_summoned:
+            button("Jae", 200, 323, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if wp in players_summoned:
+            button("Wonpil", 350, 323, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if sj in players_summoned: 
+            button("Sungjin", 500, 323, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if tw in players_summoned:
+            button("Leo", 650, 323, 100, 50, royal_blue, blue)
+            pygame.display.update
+            
+        if hs in players_summoned:
+            button("Hyuk", 50, 414, 100, 50, black, gray)
+            pygame.display.update
+            
+        if yn in players_summoned:
+            button("Yoona", 200, 414, 100, 50, black, gray)
+            pygame.display.update
+            
+        if ho in players_summoned:
+            button("Hyoyeon", 350, 414, 100, 50, black, gray)
+            pygame.display.update
+            
+        if yr in players_summoned:
+            button("Yuri", 500, 414, 100, 50, black, gray)
+            pygame.display.update
+            
+        if ty in players_summoned:
+            button("Taeyeon", 650, 414, 100, 50, black, gray)
+            pygame.display.update
+            
+        if tf in players_summoned:
+            button("Tiffany", 50, 505, 100, 50, black, gray) 
+            pygame.display.update
+            
+        if sy in players_summoned: 
+            button("Sooyoung", 200, 505, 100, 50, black, gray)
+            pygame.display.update
+            
+        if so in players_summoned:
+            button("Seohyun", 350, 505, 100, 50, black, gray)
+            pygame.display.update
+            
+        if rv in players_summoned:
+            button("Ravi", 500, 505, 100, 50, black, gray)
+            pygame.display.update
+            
+        if hb in players_summoned:
+            button("Hongbin", 650, 505, 100, 50, black, gray)
+            pygame.display.update
 
 def enhance():
     """oof am i even going to do this"""
@@ -411,10 +494,19 @@ def fight_menu():
 
         pygame.display.update()
 
-
-
 def fight():
     """eyeyeyeyeyeyeyeyeeyye"""
+    
+    fight = True
+
+    while fight:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        pygame.draw.rect(window, black, 800, 600)
+        pygame.draw.rect(window, white, )
 
 def summon_menu():
     """summon the demon"""
@@ -443,6 +535,5 @@ while not run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = True
-
-    # core logic goes here
+    
     game_intro()
