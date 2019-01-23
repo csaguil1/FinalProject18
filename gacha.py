@@ -143,7 +143,7 @@ def game_menu():
         window.blit(TextSurf, TextRect)
 
         button("formation",50,80,700,100,black,gray, formation)
-        button("enhance",50,210,700,100,black,gray, enhance)
+        button("enhance",50,210,700,100,black,gray, inventory_view)
         button("summon",50,340,700,100,black,gray, summon_menu)
         button("fight",50,470,700,100,black,gray, fight_menu)
 
@@ -218,7 +218,7 @@ def game_tutorial():
             pygame.display.update()
         elif click == 2:
             window.blit(back, (0,0))
-            text_box("Press the enhance button on the menu to upgrade your idols.")
+            text_box("Press the inventory button on the menu to view your inventory.")
             pygame.display.update()
         elif click == 3:
             window.blit(back, (0,0))
@@ -368,108 +368,15 @@ def formation():
         window.blit(back, (0,0))
         button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
 
-        if jh in players_summoned:
-            button("Jihun", 50, 141, 100, 50, gold, gold_yellow)
-            pygame.display.update
-        
-        if yh in players_summoned:
-            button("Uknow", 200, 141, 100, 50, gold, gold_yellow)
-            pygame.display.update
-        
-        if cm in players_summoned:
-            button("Max", 350, 141, 100, 50, gold, gold_yellow)
-            pygame.display.update
-        
-        if yk in players_summoned:
-            button("Brian", 500, 141, 100, 50, gold, gold_yellow)
-            pygame.display.update
-        
-        if hy in players_summoned:
-            button("N", 650, 141, 100, 50, gold, gold_yellow)
-            pygame.display.update
-            
-        if js in players_summoned:
-            button("Inseong", 50, 232, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if hj in players_summoned:
-            button("Heejun", 200, 232, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if sh in players_summoned:
-            button("Seoham", 350, 232, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if dg in players_summoned:
-            button("Donggu", 500, 232, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if sg in players_summoned:
-            button("Sunny", 650, 232, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if dw in players_summoned:
-            button("Dongwoon", 50, 323, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if ji in players_summoned:
-            button("Jae", 200, 323, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if wp in players_summoned:
-            button("Wonpil", 350, 323, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if sj in players_summoned: 
-            button("Sungjin", 500, 323, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if tw in players_summoned:
-            button("Leo", 650, 323, 100, 50, royal_blue, blue)
-            pygame.display.update
-            
-        if hs in players_summoned:
-            button("Hyuk", 50, 414, 100, 50, black, gray)
-            pygame.display.update
-            
-        if yn in players_summoned:
-            button("Yoona", 200, 414, 100, 50, black, gray)
-            pygame.display.update
-            
-        if ho in players_summoned:
-            button("Hyoyeon", 350, 414, 100, 50, black, gray)
-            pygame.display.update
-            
-        if yr in players_summoned:
-            button("Yuri", 500, 414, 100, 50, black, gray)
-            pygame.display.update
-            
-        if ty in players_summoned:
-            button("Taeyeon", 650, 414, 100, 50, black, gray)
-            pygame.display.update
-            
-        if tf in players_summoned:
-            button("Tiffany", 50, 505, 100, 50, black, gray) 
-            pygame.display.update
-            
-        if sy in players_summoned: 
-            button("Sooyoung", 200, 505, 100, 50, black, gray)
-            pygame.display.update
-            
-        if so in players_summoned:
-            button("Seohyun", 350, 505, 100, 50, black, gray)
-            pygame.display.update
-            
-        if rv in players_summoned:
-            button("Ravi", 500, 505, 100, 50, black, gray)
-            pygame.display.update
-            
-        if hb in players_summoned:
-            button("Hongbin", 650, 505, 100, 50, black, gray)
-            pygame.display.update
+        for item in players_summoned:
+            item.name()
 
-def enhance():
-    """oof am i even going to do this"""
+        pygame.display.update()
+
+def inventory_view():
+    """yah yee"""
+
+    
 
 def fight_menu():
     """yah yeet"""
@@ -505,8 +412,10 @@ def fight():
                 pygame.quit()
                 quit()
 
-        pygame.draw.rect(window, black, 800, 600)
-        pygame.draw.rect(window, white, )
+        pygame.draw.rect(window, black, 0, 400, 800, 300)
+        pygame.draw.rect(window, white, 5, 405, 790, 290)
+        pygame.draw.rect(window, black, 10, 410)
+        pygame.draw.rect(window, black, 0, 400, 800, 300)
 
 def summon_menu():
     """summon the demon"""
