@@ -113,10 +113,27 @@ players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, h
 #list of players that have been summoned
 players_summoned = []
 
+players_summoned_display = []
+
 #dictionary for inventory of items you can collect in the game
 inventory = {
     'summon stone': 0
 }
+
+#list for opponents that can be spawned in level 1
+op_1 = [f1, f2, f3]
+
+#list for opponents that can be spawned in level 2
+op_2 = [m1, m2, m3]
+
+#list for opponents that can be spawned in level 3
+op_3 = [jf, plt, wl]
+
+#list for opponents that can be spawned in level 4
+op_4 = [ss, pd, fnc]
+
+#list for opponents that can be spawned in level 5
+op_1 = [yg, sm, jyp]
 
 #importing images
 back = pygame.image.load("background.png")
@@ -411,6 +428,8 @@ def summon():
         #that players is then added to the empty players_summoned list
         players_summoned.append(pull)
 
+        players_summoned_display.append(f"{pull.name}")
+
         #2 summon stones are removed from your inventory
         inventory["summon stone"] -= 2
 
@@ -473,17 +492,25 @@ def summon():
 def formation():
     """im not sure yet how to do this"""
 
+    click = 0
+
     formation = True
 
     #loop for formation, while formation is True this will be shown on screen
     while formation:
 
+        clock.tick(5)
         # event queue handling
         # this for loop contains anything that should be triggered by an event
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE]:
+            click += 1
+        
         
         #background
         window.blit(back, (0,0))
@@ -492,8 +519,44 @@ def formation():
         button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
 
         #idk yet man
-        for item in players_summoned:
-            item.name()
+        
+        if click == 0:
+            text_box("Select your character by pressing the number that corresponds with their place in the list.")
+
+        elif click == 1:
+            text_box("If number is past 9, continue with letters. For example, q=10, w=11, and etc.")
+            
+        elif click ==2:
+            text_box(", ".join(players_summoned_display))
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_1]:
+            players_summoned[1] = fighter
+        
+        key = pygame.key.get_pressed()
+        if key[pygame.K_2]:
+            players_summoned[2] = fighter
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_3]:
+            players_summoned[3] = fighter
+        
+        key = pygame.key.get_pressed()
+        if key[pygame.K_4]:
+            players_summoned[4] = fighter
+        
+        key = pygame.key.get_pressed()
+        if key[pygame.K_5]:
+            players_summoned[5] = fighter
+        
+        key = pygame.key.get_pressed()
+        if key[pygame.K_6]:
+            players_summoned[6] = fighter
+        
+        key = pygame.key.get_pressed()
+        if key[pygame.K_7]:
+            players_summoned[7] = fighter
+
 
         #updates screen
         pygame.display.update()
@@ -516,8 +579,11 @@ def inventory_view():
         #background
         window.blit(back, (0,0))
 
-        for item in inventory:
-            text_box(d.keys)
+        text_box(str(inventory))
+
+        button("go back to menu", 50, 50, 150, 50, black, gray, game_menu)
+
+        pygame.display.update()
 
 def fight_menu():
     """allows user to choose which level they want to play"""
@@ -553,10 +619,10 @@ def fight_menu():
 def fight():
     """allows user to use players to fight opponents"""
     
-        pygame.draw.rect(window, black, 0, 400, 800, 300)
-        pygame.draw.rect(window, white, 5, 405, 790, 290)
-        pygame.draw.rect(window, black, 10, 410, 387.5, 280)
-        pygame.draw.rect(window, black, 402.5, 415, 387.5, 280)
+    pygame.draw.rect(window, black, 0, 400, 800, 300)
+    pygame.draw.rect(window, white, 5, 405, 790, 290)
+    pygame.draw.rect(window, black, 10, 410, 387.5, 280)
+    pygame.draw.rect(window, black, 402.5, 415, 387.5, 280)
 
 def level_1():
     """user plays level 1 of the game"""
@@ -570,7 +636,7 @@ def level_3():
 def level_4():
     """user plays level 4 of the game"""
 
-def level_3():
+def level_5():
     """user plays level 5 of the game"""
 
 def summon_menu():
