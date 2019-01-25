@@ -44,12 +44,18 @@ class Character:
         self.hp = hp
 
     def fight(self, opponent):
-        """make player and opponent fight"""        
+        """make player and opponent fight"""    
+    
+        #displays who attacks who
         text_box(f"{self.name} attacks {opponent.name}")
         pygame.display.update()
         time.sleep(3)
+
+        #how attack works
         dmg = self.atk - (self.atk/opponent.defense)
         opponent.hp -= dmg
+
+        #displays health
         text_box(f"{opponent.name} is at {opponent.hp} health!")
         pygame.display.update()
         time.sleep(3)
@@ -77,12 +83,18 @@ class Opponent(Character):
         text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
 
     def fight(self, you):
-        """make player and opponent fight"""        
+        """make player and opponent fight"""    
+
+        #displays who attacks who    
         text_box(f"{self.name} attacks {you.name}")
         pygame.display.update()
         time.sleep(3)
+
+        #how attacks works
         dmg = self.atk - (self.atk/you.defense)
         you.hp -= dmg
+
+        #display health
         text_box(f"{you.name} have {you.hp} health!")
         pygame.display.update()
         time.sleep(3)
@@ -120,21 +132,21 @@ rv = Player("Ravi", 5700, 5700, 50, "R")
 hb = Player("Hongbin", 5600, 5600, 50, "R")
 
 #creating Opponents that you will fight in the game
-f1 = Opponent("Fan 1", 2000, 4000, 20)
-f2 = Opponent("Fan 2", 2000, 4000, 20)
-f3 = Opponent("Fan 3", 2000, 4000, 20 )
-m1 = Opponent("Manager 1", 3000, 6000, 30)
-m2 = Opponent("Manager 2", 3000, 6000, 30)
-m3 = Opponent("Manager 3", 3000, 6000, 30)
-jf = Opponent("JellyFish", 5000, 10000, 40)
-plt = Opponent("Planetarium", 4500, 9000, 40)
-wl = Opponent("Woollim", 4000, 8000, 40)
-ss = Opponent("Starship",5500 , 11000, 50)
-pd = Opponent("Pledis", 6000, 12000, 50)
-fnc = Opponent("FNC", 6500, 13000, 50)
-yg = Opponent("YG", 9000, 18000, 60)
-sm = Opponent("SM", 10000, 20000, 60)
-jyp = Opponent("JYP", 8000, 16000, 60)
+f1 = Opponent("Fan 1", 100, 4000, 20)
+f2 = Opponent("Fan 2", 100, 4000, 20)
+f3 = Opponent("Fan 3", 100, 4000, 20 )
+m1 = Opponent("Manager 1", 200, 6000, 30)
+m2 = Opponent("Manager 2", 200, 6000, 30)
+m3 = Opponent("Manager 3", 200, 6000, 30)
+jf = Opponent("JellyFish", 500, 10000, 40)
+plt = Opponent("Planetarium", 500, 9000, 40)
+wl = Opponent("Woollim", 500, 8000, 40)
+ss = Opponent("Starship",300 , 11000, 50)
+pd = Opponent("Pledis", 600, 12000, 50)
+fnc = Opponent("FNC", 600, 13000, 50)
+yg = Opponent("YG",1000 , 10000, 60)
+sm = Opponent("SM", 1000, 20000, 60)
+jyp = Opponent("JYP", 900, 16000, 60)
 
 #list of players that you can summon
 players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
@@ -420,7 +432,7 @@ def game_tutorial():
 
         elif click == 1:
             window.blit(back, (0,0))
-            text_box("Press the formation button on the menu to set up your team.")
+            text_box("Press the formation button on the menu to choose your fighter.")
             pygame.display.update()
 
         elif click == 2:
@@ -569,22 +581,17 @@ def formation():
             pygame.display.update()
         elif click == 1:
             window.blit(back, (0,0))
-            text_box("If number is past 9, continue with letters.")
-            button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
-            pygame.display.update()
-        elif click == 2:
-            window.blit(back, (0,0))
             text_box("List of characters will first be displayed, then when it says to choose please press your number.")
             button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
             pygame.display.update()
-        elif click == 3:
+        elif click == 2:
             window.blit(back, (0,0))
             text_box(", ".join(players_summoned_display))
             button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
             pygame.display.update()
 
         #instead of a screen when click equals 5 it leads to the choose_fighter function 
-        elif click == 4:
+        elif click == 3:
             choose_fighter()
 
 def choose_fighter():
@@ -844,18 +851,152 @@ def fight_menu():
 def player_image():
     """display fighter image in fight"""
 
-    #global fighter
-#
-    #if fighter = jh:
-    #    window.blit(kimjihun, (80, 230))
-    #    jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
+    #global variable fighter
+    global fighter
 
+    #general
+    #if fighter is this player, then display that player on screen
+    #update screen
+    if fighter == jh:
+        window.blit(kimjihun, (80, 230))
+        pygame.display.update()
+    elif fighter == yh:
+        window.blit(yunho, (80, 230))
+        pygame.display.update()
+    elif fighter == cm:
+        window.blit(changmin, (80, 230))
+        pygame.display.update()
+    elif fighter == yk:
+        window.blit(brian, (80, 230))
+        pygame.display.update()
+    elif fighter == hy:
+        window.blit(hakyeon, (80, 230))
+        pygame.display.update()
+    elif fighter == js:
+        window.blit(inseong, (80, 230))
+        pygame.display.update()
+    elif fighter == hj:
+        window.blit(heejun, (80, 230))
+        pygame.display.update()
+    elif fighter == sh:
+        window.blit(seoham, (80, 230))
+        pygame.display.update()
+    elif fighter == dg:
+        window.blit(donggu, (80, 230))
+        pygame.display.update()
+    elif fighter == sg:
+        window.blit(sunny, (80, 230))
+        pygame.display.update()
+    elif fighter == dw:
+        window.blit(dongwoon, (80, 230))
+        pygame.display.update()
+    elif fighter == ji:
+        window.blit(jae, (80, 230))
+        pygame.display.update()
+    elif fighter == wp:
+        window.blit(wonpil, (80, 230))
+        pygame.display.update()
+    elif fighter == sj:
+        window.blit(sungjin, (80, 230))
+        pygame.display.update()
+    elif fighter == tw:
+        window.blit(leo, (80, 230))
+        pygame.display.update()
+    elif fighter == hs:
+        window.blit(hyuk, (80, 230))
+        pygame.display.update()
+    elif fighter == yn:
+        window.blit(yoona, (80, 230))
+        pygame.display.update()
+    elif fighter == ho:
+        window.blit(hyoyeon, (80, 230))
+        pygame.display.update()
+    elif fighter == yr:
+        window.blit(yuri, (80, 230))
+        pygame.display.update()
+    elif fighter == ty:
+        window.blit(taeyeon, (80, 230))
+        pygame.display.update()
+    elif fighter == tf:
+        window.blit(tiffany, (80, 230))
+        pygame.display.update()
+    elif fighter == sy:
+        window.blit(soyoung, (80, 230))
+        pygame.display.update()
+    elif fighter == so:
+        window.blit(seohyun, (80, 230))
+        pygame.display.update()
+    elif fighter == rv:
+        window.blit(ravi, (80, 230))
+        pygame.display.update()
+    elif fighter == hb:
+        window.blit(hongbin, (80, 230))
+        pygame.display.update()
+
+def opponent_image():
+    """display opponent image on screen"""
+
+    #general
+    #if opponent is this opponent, then display that opponent on screen
+    #update screen
+    if opponent == f1:
+        window.blit(fan1, (600, 230))
+        pygame.display.update()
+    elif opponent == f2:
+        window.blit(fan2, (600, 230))
+        pygame.display.update()
+    elif opponent == f3:
+        window.blit(fan3, (600, 230))
+        pygame.display.update()
+    elif opponent == m1:
+        window.blit(manager1, (600, 230))
+        pygame.display.update()
+    elif opponent == m2:
+        window.blit(manager2, (600, 230))
+        pygame.display.update()
+    elif opponent == m3:
+        window.blit(manager3, (600, 230))
+        pygame.display.update()
+    elif opponent == jf:
+        window.blit(jellyfish, (600, 230))
+        pygame.display.update()
+    elif opponent == plt:
+        window.blit(planet, (600, 230))
+        pygame.display.update()
+    elif opponent == wl:
+        window.blit(woollim, (600, 230))
+        pygame.display.update()
+    elif opponent == ss:
+        window.blit(starship, (600, 230))
+        pygame.display.update()
+    elif opponent == pd:
+        window.blit(pledis, (600, 230))
+        pygame.display.update()
+    elif opponent == fnc:
+        window.blit(fncent, (600, 230))
+        pygame.display.update()
+    elif opponent == yg:
+        window.blit(ygent, (600, 230))
+        pygame.display.update()
+    elif opponent == sm:
+        window.blit(sment, (600, 230))
+        pygame.display.update()
+    elif opponent == jyp:
+        window.blit(jypent, (600, 230))
+        pygame.display.update()
 
 def level_1():
     """user plays level 1 of the game"""
+
+    #there are other functions like this: level_2, level_3, level_4, and level_5, please refer to this function for comments
+
+    #global variable opponents and fighter
     global opponent
     global fighter 
+
     level_1 = True
+
+    #opponent is randomly chosen from list
     opponent = random.choice(op_1)
 
     #loop for fight menu, while fight menu is True this will be shown on screen
@@ -867,8 +1008,175 @@ def level_1():
                 pygame.quit()
                 quit()
 
+        #background
+        window.blit(back, (0,0))
+
+        #updates screen
+        pygame.display.update()
+
+        #functions display players
+        player_image()
+        opponent_image()
+
+        #fighting commence
+        opponent.fight(fighter)
+        fighter.fight(opponent)
+
+        if opponent.hp <= 0:
+
+            #displays they won
+            text_box("You Win!")
+
+            #updates screen
+            pygame.display.update()
+            time.sleep(2)
+
+            #breaks loop
+            break
+
+        if fighter.hp <= 0:
+
+            #displays you lost
+            text_box("You lose!") #rip
+
+            #updates screen
+            pygame.display.update()
+            time.sleep(2)
+
+            #break from loop
+            break
+
+def level_2():
+    """user plays level 2 of the game"""
+
+    #please refer to level_1 for comments
+
+    global opponent
+    global fighter 
+    level_2 = True
+    opponent = random.choice(op_2)
+
+    #loop for fight menu, while fight menu is True this will be shown on screen
+    while level_2:
+        # event queue handling
+        # this for loop contains anything that should be triggered by an event
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
         window.blit(back, (0,0))
         pygame.display.update()
+        player_image()
+        opponent_image()
+        opponent.fight(fighter)
+        fighter.fight(opponent)
+        if opponent.hp <= 0:
+            text_box("You Win!")
+            pygame.display.update()
+            time.sleep(2)
+            break
+        if fighter.hp <= 0:
+            text_box("You lose!") #rip
+            pygame.display.update()
+            time.sleep(2)
+            break
+
+def level_3():
+    """user plays level 3 of the game"""
+
+    #please refer to level_1 for comments
+
+    global opponent
+    global fighter 
+    level_3 = True
+    opponent = random.choice(op_3)
+
+    #loop for fight menu, while fight menu is True this will be shown on screen
+    while level_3:
+        # event queue handling
+        # this for loop contains anything that should be triggered by an event
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        pygame.display.update()
+        player_image()
+        opponent_image()
+        opponent.fight(fighter)
+        fighter.fight(opponent)
+        if opponent.hp <= 0:
+            text_box("You Win!")
+            pygame.display.update()
+            time.sleep(2)
+            break
+        if fighter.hp <= 0:
+            text_box("You lose!") #rip
+            pygame.display.update()
+            time.sleep(2)
+            break
+
+def level_4():
+    """user plays level 4 of the game"""
+
+    #please refer to level_1 for comments
+    
+    global opponent
+    global fighter 
+    level_4 = True
+    opponent = random.choice(op_4)
+
+    #loop for fight menu, while fight menu is True this will be shown on screen
+    while level_4:
+        # event queue handling
+        # this for loop contains anything that should be triggered by an event
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        pygame.display.update()
+        player_image()
+        opponent_image()
+        opponent.fight(fighter)
+        fighter.fight(opponent)
+        if opponent.hp <= 0:
+            text_box("You Win!")
+            pygame.display.update()
+            time.sleep(2)
+            break
+        if fighter.hp <= 0:
+            text_box("You lose!") #rip
+            pygame.display.update()
+            time.sleep(2)
+            break
+
+def level_5():
+    """user plays level 5 of the game"""
+
+    #please refer to level_1 for comments
+
+    global opponent
+    global fighter 
+    level_5 = True
+    opponent = random.choice(op_5)
+
+    #loop for fight menu, while fight menu is True this will be shown on screen
+    while level_5:
+        # event queue handling
+        # this for loop contains anything that should be triggered by an event
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        window.blit(back, (0,0))
+        pygame.display.update()
+        player_image()
+        opponent_image()
         opponent.fight(fighter)
         fighter.fight(opponent)
         if opponent.hp <= 0:
@@ -881,18 +1189,6 @@ def level_1():
             pygame.display.update()
             time.sleep(2)
             break
-
-def level_2():
-    """user plays level 2 of the game"""
-
-def level_3():
-    """user plays level 3 of the game"""
-
-def level_4():
-    """user plays level 4 of the game"""
-
-def level_5():
-    """user plays level 5 of the game"""
 
 def summon_menu():
     """menu to summon characters"""
