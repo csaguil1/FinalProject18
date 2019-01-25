@@ -144,6 +144,7 @@ players = [jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, h
 #list of players that have been summoned
 players_summoned = []
 
+#list of names of players that have been summoned
 players_summoned_display = []
 
 #dictionary for inventory of items you can collect in the game
@@ -164,7 +165,7 @@ op_3 = [jf, plt, wl]
 op_4 = [ss, pd, fnc]
 
 #list for opponents that can be spawned in level 5
-op_1 = [yg, sm, jyp]
+op_5 = [yg, sm, jyp]
 
 #importing images
 back = pygame.image.load("background.png")
@@ -314,7 +315,7 @@ def game_menu():
 
         #buttons that lead to different aspects of the game
         button("formation",50,80,700,100,black,gray, formation)
-        button("enhance",50,210,700,100,black,gray, inventory_view)
+        button("inventory",50,210,700,100,black,gray, inventory_view)
         button("summon",50,340,700,100,black,gray, summon_menu)
         button("fight",50,470,700,100,black,gray, fight_menu)
 
@@ -348,14 +349,18 @@ def game_story():
             click += 1
 
         #if click equals a number it will display the screen assigned to that number and update screen
+        #general format
+        #background
+        #any possible extra images
+        #text box saying story
+        #update screen
         if click == 0:
             window.blit(back, (0,0))
             text_box("PRESS SPACE TO GO TO THE NEXT SCREEN")
             pygame.display.update()
 
         elif click == 1:
-            window.blit(back2, (0,0))
-            window.blit(kimjihun, (80, 230))
+            window.blit(back, (0,0))
             text_box("It is a nice day in Seoul, Korea... ")
             pygame.display.update()
 
@@ -405,6 +410,11 @@ def game_tutorial():
             click += 1
 
         #if click equals a number it will display the screen assigned to that number and update screen
+        #general format
+        #background
+        #any possible extra images
+        #text box saying tutorial
+        #update screen
         if click == 0:
             window.blit(back, (0,0))
             text_box("First, let's find out how to play the game.")
@@ -523,7 +533,8 @@ def summon():
 
 def formation():
     """explains how to choose a fighter and displays players summoned"""
-
+    
+    #sets up a variable click that is equal to 0
     click = 0
 
     formation = True
@@ -531,7 +542,9 @@ def formation():
     #loop for formation, while formation is True this will be shown on screen
     while formation:
 
+        #sets up frames per second
         clock.tick(5)
+
         # event queue handling
         # this for loop contains anything that should be triggered by an event
         for event in pygame.event.get():
@@ -539,11 +552,18 @@ def formation():
                 pygame.quit()
                 quit()
 
+        #sets up key clicks, if key is pressed number of clicks goes up by 1
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE]:
             click += 1
 
-        #idk yet man
+        #if click equals a number it will display the screen assigned to that number and update screen
+        #general format
+        #background
+        #any possible extra images
+        #text box explaining formation
+        #button that leads back to menu
+        #update screen
         if click == 0:
             window.blit(back, (0,0))
             text_box("Select your character by pressing the number that corresponds with their place in the list.")
@@ -564,12 +584,15 @@ def formation():
             text_box(", ".join(players_summoned_display))
             button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
             pygame.display.update()
+
+        #instead of a screen when click equals 5 it leads to the choose_fighter function 
         elif click == 4:
             choose_fighter()
 
 def choose_fighter():
     """choose fighter to battle opponents"""
 
+    #global fighter variable
     global fighter
 
     choose_fighter = True
@@ -584,10 +607,20 @@ def choose_fighter():
                 pygame.quit()
                 quit()
 
+        #background
         window.blit(back, (0,0))
         text_box("Now, please press a number to choose your fighter.")
+
+        #uodates screen
         pygame.display.update()
         
+        #sets up key clicks, if user clicks a number 1-9 it displays one of these screens
+        #general format
+        #loop
+        #background
+        #defines fighter
+        #text box showing what the user chose
+        #updates screen
         key = pygame.key.get_pressed()
         if key[pygame.K_1]:
 
@@ -607,6 +640,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[0])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_2]:
             choose_fighter = True
 
@@ -624,6 +658,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[1])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_3]:
             choose_fighter = True
 
@@ -641,6 +676,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[2])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_4]:
             choose_fighter = True
 
@@ -658,6 +694,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[3])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_5]:
             choose_fighter = True
 
@@ -675,6 +712,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[4])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_6]:
             choose_fighter = True
 
@@ -692,6 +730,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[5])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_7]:
             choose_fighter = True
 
@@ -709,6 +748,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[6])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_8]:
             choose_fighter = True
 
@@ -726,6 +766,7 @@ def choose_fighter():
                 text_box(f"you chose {str(players_summoned_display[7])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
+
         if key[pygame.K_9]:
             choose_fighter = True
 
@@ -762,10 +803,13 @@ def inventory_view():
         #background
         window.blit(back, (0,0))
 
+        #textbox displays inventory dectionary as a string
         text_box(str(inventory))
 
+        #button that goes back to menu
         button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
 
+        #update screen
         pygame.display.update()
 
 def fight_menu():
