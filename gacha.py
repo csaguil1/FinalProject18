@@ -46,6 +46,7 @@ class Character:
     def fight(self, opponent):
         """make player and opponent fight"""
         
+
         
         text_box(f"{self.name} attacks {opponent.name}")
         time.sleep(3)
@@ -353,7 +354,8 @@ def game_story():
             pygame.display.update()
 
         elif click == 1:
-            window.blit(back, (0,0))
+            window.blit(back2, (0,0))
+            window.blit(kimjihun, (80, 230))
             text_box("It is a nice day in Seoul, Korea... ")
             pygame.display.update()
 
@@ -797,17 +799,15 @@ def fight_menu():
         #updates screen
         pygame.display.update()
 
-def fight():
-    """allows user to use players to fight opponents"""
-    
-    window.blit(back, (0,0))
-    
-    pygame.draw.rect(window, black, 0, 400, 800, 300)
-    pygame.draw.rect(window, white, 5, 405, 790, 290)
-    pygame.draw.rect(window, black, 10, 410, 387.5, 280)
-    pygame.draw.rect(window, black, 402.5, 415, 387.5, 280)
+def player_image():
+    """display fighter image in fight"""
 
-    pygame.display.update()
+    #global fighter
+#
+    #if fighter = jh:
+    #    window.blit(kimjihun, (80, 230))
+    #    jh, yh, cm, yk, hy, js, hj, sh, dg, sg, dw, ji, wp, sj, tw, hs, yn, ho, yr, ty, tf, sy, so, rv, hb]
+
 
 def level_1():
     """user plays level 1 of the game"""
