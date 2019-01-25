@@ -44,37 +44,19 @@ class Character:
         self.hp = hp
 
     def fight(self, opponent):
-        """make player and opponent fight"""
-        
-
-        
+        """make player and opponent fight"""        
         text_box(f"{self.name} attacks {opponent.name}")
+        pygame.display.update()
         time.sleep(3)
         dmg = self.atk - (self.atk/opponent.defense)
-        dmg_opponent = opponent.atk - (opponent.atk/self.defense)
-        while self.hp > 0 and opponent.hp > 0:
+        opponent.hp -= dmg
+        text_box(f"{opponent.name} is at {opponent.hp} health!")
+        pygame.display.update()
+        time.sleep(3)
+        text_box(f"{self.name} is at {self.hp} health!")
+        pygame.display.update()
+        time.sleep(3)
             
-            if self.hp <= 0:
-                True
-            else:
-                opponent.hp -= dmg
-            
-            if opponent.hp <= 0:
-                True
-            else:
-                self.hp -= dmg_opponent
-
-            text_box(f"{opponent.name} is at {opponent.hp} health!")
-            time.sleep(3)
-            text_box(f"{self.name} is at {self.hp} health!")
-            time.sleep(3)
-        if self.hp <= 0:
-            text_box(f"{self.name} dies!")
-            button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
-        elif opponent.hp <= 0:
-            text_box(f"{opponent.name} dies!")
-            
-
 class Player(Character):
   """Class for a player character"""
   def __init__(self, name, atk, hp, defense, rank):
@@ -86,13 +68,29 @@ class Player(Character):
     text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}, rank: {self.rank}""")
 
 class Opponent(Character):
-  """Class for opponents"""
-  def __init__(self, name, atk, hp, defense):
-    Character.__init__(self, name, atk, hp, defense)
+    """Class for opponents"""
+    def __init__(self, name, atk, hp, defense):
+        Character.__init__(self, name, atk, hp, defense)
 
-  def describe(self):
-    """describe the specified opponent"""
-    text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
+    def describe(self):
+        """describe the specified opponent"""
+        text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
+
+    def fight(self, you):
+        """make player and opponent fight"""        
+        text_box(f"{self.name} attacks {you.name}")
+        pygame.display.update()
+        time.sleep(3)
+        dmg = self.atk - (self.atk/you.defense)
+        you.hp -= dmg
+        text_box(f"{you.name} have {you.hp} health!")
+        pygame.display.update()
+        time.sleep(3)
+        text_box(f"{self.name} is at {self.hp} health!")
+        pygame.display.update()
+        print(self.hp)
+        pygame.display.update()
+
 
 #creating Players that you can summon in the game
 jh = Player("Jihun", 10000, 10000, 100, "SSR")
@@ -855,16 +853,13 @@ def player_image():
 
 def level_1():
     """user plays level 1 of the game"""
-
+    global opponent
     global fighter 
-
     level_1 = True
-
-    opponent = random.choice[op_1]
+    opponent = random.choice(op_1)
 
     #loop for fight menu, while fight menu is True this will be shown on screen
     while level_1:
-
         # event queue handling
         # this for loop contains anything that should be triggered by an event
         for event in pygame.event.get():
@@ -873,10 +868,19 @@ def level_1():
                 quit()
 
         window.blit(back, (0,0))
-
-        fighter.fight(opponent)
-
         pygame.display.update()
+        opponent.fight(fighter)
+        fighter.fight(opponent)
+        if opponent.hp <= 0:
+            text_box("You Win!")
+            time.sleep(2)
+            pygame.display.update()
+            break
+        if fighter.hp <= 0:
+            text_box("You lose!") #rip
+            pygame.display.update()
+            time.sleep(2)
+            break
 
 def level_2():
     """user plays level 2 of the game"""
