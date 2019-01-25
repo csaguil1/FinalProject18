@@ -1009,7 +1009,7 @@ def level_1():
                 quit()
 
         #background
-        window.blit(back, (0,0))
+        window.blit(back2, (0,0))
 
         #updates screen
         pygame.display.update()
@@ -1065,7 +1065,7 @@ def level_2():
                 pygame.quit()
                 quit()
 
-        window.blit(back, (0,0))
+        window.blit(back2, (0,0))
         pygame.display.update()
         player_image()
         opponent_image()
@@ -1101,7 +1101,7 @@ def level_3():
                 pygame.quit()
                 quit()
 
-        window.blit(back, (0,0))
+        window.blit(back2, (0,0))
         pygame.display.update()
         player_image()
         opponent_image()
@@ -1137,7 +1137,7 @@ def level_4():
                 pygame.quit()
                 quit()
 
-        window.blit(back, (0,0))
+        window.blit(back2, (0,0))
         pygame.display.update()
         player_image()
         opponent_image()
@@ -1173,7 +1173,7 @@ def level_5():
                 pygame.quit()
                 quit()
 
-        window.blit(back, (0,0))
+        window.blit(back2, (0,0))
         pygame.display.update()
         player_image()
         opponent_image()
