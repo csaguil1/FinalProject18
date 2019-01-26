@@ -78,10 +78,6 @@ class Opponent(Character):
     def __init__(self, name, atk, hp, defense):
         Character.__init__(self, name, atk, hp, defense)
 
-    def describe(self):
-        """describe the specified opponent"""
-        text_box(f"""{self.name}: hp: {self.hp}, atk: {self.atk}, def: {self.defense}""")
-
     def fight(self, you):
         """make player and opponent fight"""    
 
@@ -100,8 +96,7 @@ class Opponent(Character):
         time.sleep(3)
         text_box(f"{self.name} is at {self.hp} health!")
         pygame.display.update()
-        print(self.hp)
-        pygame.display.update()
+        time.sleep(3)
 
 
 #creating Players that you can summon in the game
@@ -715,78 +710,6 @@ def choose_fighter():
                 window.blit(back, (0,0))
                 fighter = players_summoned[4]
                 text_box(f"you chose {str(players_summoned_display[4])}")
-                button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
-                pygame.display.update()
-
-        if key[pygame.K_6]:
-            choose_fighter = True
-
-            #loop for choosing fighter, while choosing fighter is True this will be shown on screen
-            while choose_fighter:
-                
-                # event queue handling
-                # this for loop contains anything that should be triggered by an event
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        quit()
-                window.blit(back, (0,0))
-                fighter = players_summoned[5]
-                text_box(f"you chose {str(players_summoned_display[5])}")
-                button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
-                pygame.display.update()
-
-        if key[pygame.K_7]:
-            choose_fighter = True
-
-            #loop for choosing fighter, while choosing fighter is True this will be shown on screen
-            while choose_fighter:
-                
-                # event queue handling
-                # this for loop contains anything that should be triggered by an event
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        quit()
-                window.blit(back, (0,0))
-                fighter = players_summoned[6]
-                text_box(f"you chose {str(players_summoned_display[6])}")
-                button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
-                pygame.display.update()
-
-        if key[pygame.K_8]:
-            choose_fighter = True
-
-            #loop for choosing fighter, while choosing fighter is True this will be shown on screen
-            while choose_fighter:
-                
-                # event queue handling
-                # this for loop contains anything that should be triggered by an event
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        quit()
-                window.blit(back, (0,0))
-                fighter = players_summoned[7]
-                text_box(f"you chose {str(players_summoned_display[7])}")
-                button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
-                pygame.display.update()
-
-        if key[pygame.K_9]:
-            choose_fighter = True
-
-            #loop for choosing fighter, while choosing fighter is True this will be shown on screen
-            while choose_fighter:
-                
-                # event queue handling
-                # this for loop contains anything that should be triggered by an event
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        quit()
-                window.blit(back, (0,0))
-                fighter = players_summoned[9]
-                text_box(f"you chose {str(players_summoned_display[9])}")
                 button("go back to menu", 50, 50, 200, 50, black, gray, game_menu)
                 pygame.display.update()
 
